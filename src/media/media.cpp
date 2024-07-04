@@ -1,4 +1,4 @@
-#include "media/media.hpp"
+#include "QtUtility/media/media.hpp"
 
 QIcon Media::recolor(const QIcon &icon, const QColor &color, const QSize &size)
 {
