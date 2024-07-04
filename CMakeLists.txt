@@ -1,8 +1,10 @@
 cmake_minimum_required(VERSION 3.8)
 project(QtUtility)
 
+option(BUILD_TESTS "BUILD TESTS" OFF)
+
 find_package(QT NAMES Qt6 REQUIRED COMPONENTS Core)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Widgets Test)
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
@@ -42,3 +44,21 @@ install(
 export(EXPORT QtUtilityConfig NAMESPACE QtUtility::)
 
 install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+
+if(BUILD_TESTS)
+  add_subdirectory(external/googletest)
+  include(GoogleTest)
+  include(CTest)
+
+  enable_testing()
+
+  file(GLOB_RECURSE TEST_SOURCES "tests/*.cpp")
+
+  add_executable(unitTests ${TEST_SOURCES})
+
+  target_link_libraries(
+    unitTests PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Test
+                      gtest QtUtility)
+
+  gtest_discover_tests(unitTests)
+endif()
