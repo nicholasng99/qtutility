@@ -28,7 +28,8 @@ target_include_directories(
   PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
           $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
 
-target_link_libraries(QtUtility PUBLIC Qt${QT_VERSION_MAJOR}::Core)
+target_link_libraries(QtUtility PUBLIC Qt${QT_VERSION_MAJOR}::Core
+                                       Qt${QT_VERSION_MAJOR}::Widgets)
 
 install(
   TARGETS QtUtility
