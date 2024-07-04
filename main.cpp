@@ -1,6 +1,6 @@
 #include <QApplication>
 
-#include "data/job_queue/job_queue.h"
+#include "job_queue.h"
 
 int main(int argc, char *argv[])
 {
