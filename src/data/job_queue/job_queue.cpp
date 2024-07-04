@@ -1,8 +1,8 @@
-#include "JobQueue.h"
+#include "data/job_queue/job_queue.h"
 
-ThreadedObject::ThreadedObject() :
-    m_interrupt(false),
-    m_thread(new QThread)
+ThreadedObject::ThreadedObject()
+    : m_interrupt(false),
+      m_thread(new QThread)
 {
     moveToThread(m_thread);
     connect(this, &ThreadedObject::jobReceived, this, &ThreadedObject::doJob, Qt::QueuedConnection);
@@ -16,7 +16,7 @@ ThreadedObject::~ThreadedObject()
     m_thread->wait();
 }
 
-void ThreadedObject::setInterrupt(const bool & state)
+void ThreadedObject::setInterrupt(const bool &state)
 {
     if (m_interrupt == state)
         return;

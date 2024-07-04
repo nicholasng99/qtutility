@@ -1,7 +1,7 @@
 template <class T>
-JobQueue<T>::JobQueue(std::function<void(const T& job)> doFunction) :
-    m_doFunction(doFunction),
-    ThreadedObject()
+JobQueue<T>::JobQueue(std::function<void(const T &job)> doFunction)
+    : m_doFunction(doFunction),
+      ThreadedObject()
 {
 }
 
@@ -11,13 +11,13 @@ JobQueue<T>::~JobQueue()
     m_interrupt = true;
     while (!m_jobs.empty())
     {
-        delete  m_jobs.front();
+        delete m_jobs.front();
         m_jobs.pop();
     }
 }
 
 template <class T>
-void JobQueue<T>::queueJob(const T & job)
+void JobQueue<T>::queueJob(const T &job)
 {
     m_jobs.push(new T(job));
     emit jobReceived();

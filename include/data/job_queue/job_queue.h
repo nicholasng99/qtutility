@@ -1,11 +1,11 @@
 #pragma once
 
-#include <queue>
-#include <functional>
-
 #include <QObject>
 #include <QMutex>
 #include <QThread>
+
+#include <queue>
+#include <functional>
 
 class QThread;
 
@@ -15,7 +15,7 @@ class ThreadedObject : public QObject
 public:
     ThreadedObject();
     virtual ~ThreadedObject();
-    void setInterrupt(const bool& state);
+    void setInterrupt(const bool &state);
 
 signals:
     void jobReceived();
@@ -26,22 +26,22 @@ protected slots:
 protected:
     bool m_interrupt;
     QMutex m_mutex;
-    QThread* m_thread;
+    QThread *m_thread;
 };
 
 template <class T>
 class JobQueue : public ThreadedObject
 {
 public:
-    JobQueue(std::function<void(const T& job)> doFunction);
+    JobQueue(std::function<void(const T &job)> doFunction);
     ~JobQueue();
-    void queueJob(const T& job);
+    void queueJob(const T &job);
 
 protected:
     virtual void doJob() override;
 
-    std::queue<T*> m_jobs;
-    std::function<void(const T& job)> m_doFunction;
+    std::queue<T *> m_jobs;
+    std::function<void(const T &job)> m_doFunction;
 };
 
-#include "JobQueue.tpp"
+#include "job_queue.tpp"
