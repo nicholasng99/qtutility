@@ -5,8 +5,13 @@
 bool file::create(const QFileInfo &info, const bool &override)
 {
     QFile file(info.filePath());
-    if (file.exists() && override)
-        return file.resize(0);
+    if (file.exists())
+    {
+        if (override)
+            return file.resize(0);
+        else
+            return true;
+    }
     info.absoluteDir().mkpath(".");
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
         return false;
