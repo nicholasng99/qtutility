@@ -46,7 +46,8 @@ export(EXPORT QtUtilityConfig NAMESPACE QtUtility::)
 
 install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
-if(BUILD_TESTS)
+if(BUILD_TESTS OR CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
+  message("BUILDING TESTS")
   add_subdirectory(external/googletest)
   include(GoogleTest)
   include(CTest)
