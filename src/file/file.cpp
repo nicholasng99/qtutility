@@ -7,6 +7,7 @@ bool file::create(const QFileInfo &info, const bool &override)
     QFile file(info.filePath());
     if (file.exists() && override)
         return file.resize(0);
+    info.absoluteDir().mkpath(".");
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
         return false;
     file.close();
@@ -26,6 +27,7 @@ QFileInfo file::createUnique(const QFileInfo &info)
 {
     QFileInfo result = getUniqueFile(info);
     QFile file(result.filePath());
+    info.absoluteDir().mkpath(".");
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
         return QFileInfo();
     file.close();
