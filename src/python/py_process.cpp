@@ -1,33 +1,30 @@
-#include "python/py_process.hpp"
+#include "QtUtility/python/py_process.hpp"
 
 #include <QFileInfo>
 #include <QProcess>
 #include <QTemporaryFile>
 
+namespace QtUtility {
+
 python::Output python::run(const QResource &script, const QStringList &args)
 {
     python::Output output;
 
-    if (!script.isValid())
-    {
+    if (!script.isValid()) {
         output.error = "Resource not found";
         return output;
     }
 
-    if (QFileInfo(script.fileName()).suffix() != "py")
-    {
+    if (QFileInfo(script.fileName()).suffix() != "py") {
         output.error = "Resource file is not a .py";
         return output;
     }
 
     QTemporaryFile tempFile;
-    if (tempFile.open())
-    {
+    if (tempFile.open()) {
         tempFile.write(reinterpret_cast<const char *>(script.data()), script.size());
         tempFile.close();
-    }
-    else
-    {
+    } else {
         output.error = "Failed to create temporary file";
         return output;
     }
@@ -43,3 +40,5 @@ python::Output python::run(const QResource &script, const QStringList &args)
     output.error = process.readAllStandardError();
     return output;
 }
+
+} // namespace QtUtility

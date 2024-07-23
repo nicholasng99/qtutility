@@ -3,7 +3,9 @@
 #include <QDebug>
 #include <QTemporaryDir>
 
-#include "file/file.hpp"
+#include <QtUtility/file/file.hpp>
+
+namespace file = QtUtility::file;
 
 class FileTest : public ::testing::Test
 {
@@ -14,15 +16,9 @@ protected:
         ASSERT_TRUE(tempDir->isValid()) << "Failed to create temporary directory";
     }
 
-    void TearDown() override
-    {
-        tempDir.reset();
-    }
+    void TearDown() override { tempDir.reset(); }
 
-    QString getTempFilePath(const QString &fileName) const
-    {
-        return tempDir->filePath(fileName);
-    }
+    QString getTempFilePath(const QString &fileName) const { return tempDir->filePath(fileName); }
 
     const QString FILE_NAME = "test.txt";
     std::unique_ptr<QTemporaryDir> tempDir;

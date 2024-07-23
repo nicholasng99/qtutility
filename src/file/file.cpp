@@ -1,12 +1,13 @@
-#include "file/file.hpp"
+#include "QtUtility/file/file.hpp"
 
 #include <QDir>
+
+namespace QtUtility {
 
 bool file::create(const QFileInfo &info, const bool &override)
 {
     QFile file(info.filePath());
-    if (file.exists())
-    {
+    if (file.exists()) {
         if (override)
             return file.resize(0);
         else
@@ -24,7 +25,11 @@ QFileInfo file::getUniqueFile(const QFileInfo &info)
     QFileInfo result = info;
     int counter = 1;
     while (result.exists())
-        result = QFileInfo(info.dir(), QString("%1 (%2).%3").arg(info.baseName()).arg(++counter).arg(info.completeSuffix()));
+        result = QFileInfo(info.dir(),
+                           QString("%1 (%2).%3")
+                               .arg(info.baseName())
+                               .arg(++counter)
+                               .arg(info.completeSuffix()));
     return result;
 }
 
@@ -38,3 +43,5 @@ QFileInfo file::createUnique(const QFileInfo &info)
     file.close();
     return result;
 }
+
+} // namespace QtUtility
