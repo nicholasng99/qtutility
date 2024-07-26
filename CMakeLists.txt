@@ -48,6 +48,7 @@ install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
 if(BUILD_TESTS OR CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
   message("BUILDING TESTS")
+  set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
   add_subdirectory(external/googletest)
   include(GoogleTest)
   include(CTest)
