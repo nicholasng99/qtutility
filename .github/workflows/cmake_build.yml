@@ -36,10 +36,6 @@ jobs:
       with:
         version: ${{ matrix.qt_version }}
 
-    - name: Setup (Ubuntu)
-      if: startsWith (matrix.os, 'ubuntu')
-      run: sudo apt-get install libxkbcommon-dev libgl1-mesa-dev
-
     - name: Setup VS tools (Windows)
       if: startsWith (matrix.os, 'windows')
       uses: egor-tensin/vs-shell@v2
