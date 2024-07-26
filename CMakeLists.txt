@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.8)
 project(QtUtility)
 
-option(BUILD_TESTS "BUILD TESTS" OFF)
+option(BUILD_TESTS_QTUTILITY "BUILD TESTS" OFF)
 
 find_package(QT NAMES Qt6 REQUIRED COMPONENTS Core)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Widgets Test)
@@ -48,9 +48,11 @@ export(EXPORT QtUtilityConfig NAMESPACE QtUtility::)
 
 install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
-if(BUILD_TESTS)
+if(BUILD_TESTS_QTUTILITY)
   message("BUILDING TESTS")
-  set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+  set(gtest_force_shared_crt
+      ON
+      CACHE BOOL "" FORCE)
   add_subdirectory(external/googletest)
   include(GoogleTest)
   include(CTest)
@@ -65,5 +67,5 @@ if(BUILD_TESTS)
     unitTests PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Test
                       gtest QtUtility)
 
-  gtest_discover_tests(unitTests)
+  add_test(NAME unitTests COMMAND unitTests)
 endif()
