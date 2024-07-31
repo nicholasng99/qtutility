@@ -1,6 +1,7 @@
 #include "QtUtility/file/file.hpp"
 
 #include <QDir>
+#include <QDirIterator>
 
 namespace QtUtility {
 
@@ -42,6 +43,28 @@ QFileInfo file::createUnique(const QFileInfo &info)
         return QFileInfo();
     file.close();
     return result;
+}
+
+void file::copyAndReplaceFolderContents(const QDir &from, const QDir &to)
+{
+    QDirIterator it(from.absolutePath(),
+                    QDir::AllEntries | QDir::Hidden | QDir::System,
+                    QDirIterator::Subdirectories);
+    const int absSourcePathLength = from.absolutePath().length();
+
+    while (it.hasNext()) {
+        it.next();
+        const auto fileInfo = it.fileInfo();
+        const QString subPathStructure = fileInfo.absoluteFilePath().mid(absSourcePathLength);
+        const QString constructedAbsolutePath = to.absolutePath() + subPathStructure;
+
+        if (fileInfo.isDir()) {
+            to.mkpath(constructedAbsolutePath);
+        } else if (fileInfo.isFile()) {
+            QFile::remove(constructedAbsolutePath);
+            QFile::copy(fileInfo.absoluteFilePath(), constructedAbsolutePath);
+        }
+    }
 }
 
 } // namespace QtUtility
