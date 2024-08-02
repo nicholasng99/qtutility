@@ -2,10 +2,8 @@
 
 #include <QWidget>
 
-class QGridLayout;
 class QToolButton;
-class QFrame;
-class QParallelAnimationGroup;
+class QVBoxLayout;
 class QScrollArea;
 
 namespace QtUtility {
@@ -18,15 +16,17 @@ public:
     QCollapsibleWidget(const QString &title = "", QWidget *parent = nullptr);
     void setContentLayout(QLayout *contentLayout);
 
+signals:
+    void contentSizeChanged();
+
 public slots:
     void setCollapsed(bool collapsed);
-    void onContentUpdated();
+    void updateContentSize();
 
 private:
     QToolButton *m_titleButton;
-    QGridLayout *m_layout;
+    QVBoxLayout *m_layout;
     QScrollArea *m_content;
-    QParallelAnimationGroup *m_animation;
 };
 
 } // namespace widgets
