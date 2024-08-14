@@ -15,7 +15,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
 file(GLOB_RECURSE PROJECT_SOURCES "src/*.cpp")
-file(GLOB_RECURSE PROJECT_HEADERS "include/*.hpp" "include/*.tpp")
+file(GLOB_RECURSE PROJECT_HEADERS "include/*.hpp")
 file(GLOB_RECURSE PROJECT_RESOURCES "resources/*.qrc")
 
 add_library(QtUtility SHARED ${PROJECT_SOURCES} ${PROJECT_HEADERS}
@@ -32,6 +32,10 @@ target_include_directories(
 
 target_link_libraries(QtUtility PUBLIC Qt${QT_VERSION_MAJOR}::Core
                                        Qt${QT_VERSION_MAJOR}::Widgets)
+
+qt_wrap_cpp(utility_moc ${PROJECT_HEADERS} TARGET QtUtility OPTIONS --no-notes)
+
+target_sources(QtUtility PRIVATE ${utility_moc})
 
 install(
   TARGETS QtUtility
