@@ -9,7 +9,6 @@ namespace widgets {
 
 QCollapsibleWidget::QCollapsibleWidget(const QString &title, QWidget *parent)
     : QWidget(parent)
-
     , m_titleButton(new QToolButton())
     , m_layout(new QVBoxLayout(this))
     , m_content(new QScrollArea())

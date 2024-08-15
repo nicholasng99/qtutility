@@ -33,6 +33,8 @@ target_include_directories(
 target_link_libraries(QtUtility PUBLIC Qt${QT_VERSION_MAJOR}::Core
                                        Qt${QT_VERSION_MAJOR}::Widgets)
 
+target_compile_definitions(QtUtility PRIVATE QTUTILITY_LIBRARY)
+
 qt_wrap_cpp(utility_moc ${PROJECT_HEADERS} TARGET QtUtility OPTIONS --no-notes)
 
 target_sources(QtUtility PRIVATE ${utility_moc})

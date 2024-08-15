@@ -2,6 +2,8 @@
 
 #include <QWidget>
 
+#include "QtUtility/export.hpp"
+
 class QToolButton;
 class QVBoxLayout;
 class QScrollArea;
@@ -9,7 +11,7 @@ class QScrollArea;
 namespace QtUtility {
 namespace widgets {
 
-class QCollapsibleWidget : public QWidget
+class QTUTILITY_EXPORT QCollapsibleWidget : public QWidget
 {
     Q_OBJECT
 public:
