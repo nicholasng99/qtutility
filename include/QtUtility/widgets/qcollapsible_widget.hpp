@@ -16,7 +16,7 @@ class QTUTILITY_EXPORT QCollapsibleWidget : public QWidget
     Q_OBJECT
 public:
     QCollapsibleWidget(const QString &title = "", QWidget *parent = nullptr);
-    void setContentLayout(QLayout *contentLayout);
+    void setWidget(QWidget *widget);
 
 signals:
     void contentSizeChanged();

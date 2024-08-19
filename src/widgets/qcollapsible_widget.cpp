@@ -27,17 +27,19 @@ QCollapsibleWidget::QCollapsibleWidget(const QString &title, QWidget *parent)
     m_layout->addWidget(m_titleButton);
     m_layout->addWidget(m_content);
 
+    m_content->setWidgetResizable(true);
+
     QObject::connect(m_titleButton, &QToolButton::clicked, this, &QCollapsibleWidget::setCollapsed);
 }
 
-void QCollapsibleWidget::setContentLayout(QLayout *contentLayout)
+void QCollapsibleWidget::setWidget(QWidget *widget)
 {
-    if (!contentLayout)
+    if (!widget)
         return;
-    if (m_content->layout() == contentLayout)
+    if (m_content->widget() == widget)
         return;
-    delete m_content->layout();
-    m_content->setLayout(contentLayout);
+    delete m_content->widget();
+    m_content->setWidget(widget);
     updateContentSize();
 }
 
