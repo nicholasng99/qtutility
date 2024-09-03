@@ -93,8 +93,8 @@ void QImageGallery::onImageSelected()
         clearViewer();
     } else {
         QModelIndex index = selectionModel->currentIndex();
-        auto w = width() > IMAGE_WIDTH ? width() : IMAGE_WIDTH;
-        m_viewer->setPixmap(m_images->at(index.row()).scaledToWidth(w, Qt::SmoothTransformation));
+        m_viewer->setPixmap(
+            m_images->at(index.row()).scaledToWidth(IMAGE_WIDTH, Qt::SmoothTransformation));
     }
 }
 
